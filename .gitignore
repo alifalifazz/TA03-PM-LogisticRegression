@@ -10,10 +10,6 @@ __pycache__/
 # VSCode
 .vscode/
 
-# Model & data artifacts
-models/
-data/
-
 # OS files
 .DS_Store
 Thumbs.db
