@@ -59,4 +59,4 @@ def predict():
         return f"Terjadi kesalahan: {e}"
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=int(__import__('os').environ.get('PORT', 5000)), debug=True)
+    app.run(host="0.0.0.0", port=int(__import__('os').environ.get('PORT', 8080)), debug=True)
