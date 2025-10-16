@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prediksi Risiko Kredit</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:600,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            padding: 36px 32px 28px 32px;
+            max-width: 720px;
+            width: 100%;
+        }
+        h2 {
+            color: #22223b;
+            text-align: center;
+            margin-bottom: 28px;
+            letter-spacing: 1px;
+        }
+        label {
+            display: block;
+            margin-top: 14px;
+            color: #22223b;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-top: 6px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 7px;
+            font-size: 15px;
+            background: #f8f9fa;
+            transition: border 0.2s;
+        }
+        input[type="number"]:focus {
+            border: 1.5px solid #66a6ff;
+            outline: none;
+            background: #eaf6ff;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+        }
+        button {
+            flex: 1;
+            padding: 12px 0;
+            border: none;
+            border-radius: 7px;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+        }
+        #predict {
+            background: linear-gradient(90deg, #007bff 60%, #66a6ff 100%);
+            width: 60%;
+            padding: 14px 0;
+            font-size: 16px;
+        }
+
+        #predict:hover {
+            background: linear-gradient(90deg, #0056b3 60%, #66a6ff 100%);
+            transform: translateY(-2px) scale(1.03);
+            cursor: pointer;
+        }
+        #safeExample {
+            background: linear-gradient(90deg, #28a745 60%, #89f7fe 100%);
+        }
+        #safeExample:hover {
+            background: linear-gradient(90deg, #218838 60%, #89f7fe 100%);
+            transform: translateY(-2px) scale(1.03);
+            cursor: pointer;
+        }
+        #riskyExample {
+            background: linear-gradient(90deg, #dc3545 60%, #66a6ff 100%);
+        }
+        #riskyExample:hover {
+            background: linear-gradient(90deg, #b02a37 60%, #66a6ff 100%);
+            transform: translateY(-2px) scale(1.03);
+            cursor: pointer;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 18px 8px 16px 8px;
+                max-width: 98vw;
+            }
+            .button-group {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+        .center-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 18px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Formulir Prediksi Risiko Gagal Bayar</h2>
+        <form id="creditForm" action="/predict" method="post">
+            <label>Batas Kredit (LIMIT_BAL)</label>
+            <input type="number" step="any" name="LIMIT_BAL" required>
+
+            <label>Jenis Kelamin (1=Laki-laki, 2=Perempuan)</label>
+            <input type="number" name="SEX" required>
+
+            <label>Pendidikan (1=Graduate, 2=University, 3=High School, 4=Lainnya)</label>
+            <input type="number" name="EDUCATION" required>
+
+            <label>Status Pernikahan (1=Menikah, 2=Lajang, 3=Lainnya)</label>
+            <input type="number" name="MARRIAGE" required>
+
+            <label>Usia</label>
+            <input type="number" name="AGE" required>
+
+            <label>Status Pembayaran Bulan ke-0 s.d 6 (PAY_0 - PAY_6)</label>
+            <input type="number" name="PAY_0" required>
+            <input type="number" name="PAY_2" required>
+            <input type="number" name="PAY_3" required>
+            <input type="number" name="PAY_4" required>
+            <input type="number" name="PAY_5" required>
+            <input type="number" name="PAY_6" required>
+
+            <label>Jumlah Tagihan (BILL_AMT1 - BILL_AMT6)</label>
+            <input type="number" step="any" name="BILL_AMT1" required>
+            <input type="number" step="any" name="BILL_AMT2" required>
+            <input type="number" step="any" name="BILL_AMT3" required>
+            <input type="number" step="any" name="BILL_AMT4" required>
+            <input type="number" step="any" name="BILL_AMT5" required>
+            <input type="number" step="any" name="BILL_AMT6" required>
+
+            <label>Jumlah Pembayaran (PAY_AMT1 - PAY_AMT6)</label>
+            <input type="number" step="any" name="PAY_AMT1" required>
+            <input type="number" step="any" name="PAY_AMT2" required>
+            <input type="number" step="any" name="PAY_AMT3" required>
+            <input type="number" step="any" name="PAY_AMT4" required>
+            <input type="number" step="any" name="PAY_AMT5" required>
+            <input type="number" step="any" name="PAY_AMT6" required>
+
+            <div class="button-group">
+                <button type="button" id="safeExample" onclick="isiContohAman()">Contoh Aman</button>
+                <button type="button" id="riskyExample" onclick="isiContohBerisiko()">Contoh Berisiko</button>
+            </div>
+            <div class="center-button">
+                <button type="submit" id="predict">Prediksi Risiko</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        function isiContohAman() {
+            const form = document.forms['creditForm'];
+            const values = {
+                LIMIT_BAL: 200000, SEX: 2, EDUCATION: 2, MARRIAGE: 1, AGE: 35,
+                PAY_0: 0, PAY_2: 0, PAY_3: 0, PAY_4: 0, PAY_5: 0, PAY_6: 0,
+                BILL_AMT1: 20000, BILL_AMT2: 18000, BILL_AMT3: 16000, BILL_AMT4: 15000, BILL_AMT5: 12000, BILL_AMT6: 10000,
+                PAY_AMT1: 20000, PAY_AMT2: 18000, PAY_AMT3: 16000, PAY_AMT4: 15000, PAY_AMT5: 12000, PAY_AMT6: 10000
+            };
+            for (const key in values) { form[key].value = values[key]; }
+        }
+
+        function isiContohBerisiko() {
+            const form = document.forms['creditForm'];
+            const values = {
+                LIMIT_BAL: 50000, SEX: 1, EDUCATION: 3, MARRIAGE: 2, AGE: 25,
+                PAY_0: 2, PAY_2: 2, PAY_3: 1, PAY_4: 0, PAY_5: 0, PAY_6: 0,
+                BILL_AMT1: 60000, BILL_AMT2: 58000, BILL_AMT3: 55000, BILL_AMT4: 50000, BILL_AMT5: 48000, BILL_AMT6: 45000,
+                PAY_AMT1: 1000, PAY_AMT2: 2000, PAY_AMT3: 1000, PAY_AMT4: 0, PAY_AMT5: 0, PAY_AMT6: 0
+            };
+            for (const key in values) { form[key].value = values[key]; }
+        }
+    </script>
+</body>
+</html>
